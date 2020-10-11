@@ -1,13 +1,13 @@
 #pragma once
 #include "MyVector.h"
 template <class T>
-class TMatrix :public Vector<Vector<T>>
+class TMatrix :public Vector<Vector<T> >
 {
 public:
-	TMatrix(int _size = 0);
+  TMatrix(int _size = 0);
 	TMatrix(const TMatrix<T>& A);
 	~TMatrix();
-    TMatrix<T>& operator =(const TMatrix<T>& A);
+  TMatrix<T>& operator =(const TMatrix<T>& A);
 	TMatrix<T> operator +(const TMatrix<T>& A);
 };
 
