@@ -12,12 +12,12 @@ public:
 };
 
 template<class T>
-inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T>> (_size)
+inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T> > (_size)
 {
 }
 
 template<class T>
-inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T>>(A)
+inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T> >(A)
 {
 }
 
@@ -31,7 +31,7 @@ inline TMatrix<T>& TMatrix<T>::operator=(const TMatrix<T>& A)
 {
 	if (this != &A)
 	{
-		Vector<Vector<T>>::operator = (A);
+		Vector<Vector<T> >::operator = (A);
 	}
 	return *this;
 }
