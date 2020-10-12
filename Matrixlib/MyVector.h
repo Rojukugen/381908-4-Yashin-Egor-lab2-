@@ -1,12 +1,12 @@
-#ifndef _MY_VECTOR_
-#define _MY_VECTOR_
+#ifndef __TMATRIX_H__
+#define __TMATRIX_H__
 
 #include <iostream>
 
 using namespace std;
 
-const int MAX_VECTOR_SIZE = 1000000;
-const int MAX_MATRIX_SIZE = 1000;
+const int MAX_VECTOR_SIZE = 100000000;
+const int MAX_MATRIX_SIZE = 10000;
 
 // Шаблон вектора
 template <class ValType>
@@ -15,13 +15,13 @@ class TVector
 protected:
 	ValType* pVector;
 	int Size;       // размер вектора
-	int FirstIndex; // индекс первого элемента вектора
+	int StartIndex; // индекс первого элемента вектора
 public:
 	TVector(int s = 10, int si = 0);
 	TVector(const TVector& v);                // конструктор копирования
 	~TVector();
 	int GetSize() { return Size; } // размер вектора
-	int GetStartIndex() { return FirstIndex; } // индекс первого элемента
+	int GetStartIndex() { return StartIndex; } // индекс первого элемента
 	ValType& operator[](int pos);             // доступ
 	bool operator==(const TVector& v) const;  // сравнение
 	bool operator!=(const TVector& v) const;  // сравнение
@@ -62,7 +62,7 @@ TVector<ValType>::TVector(int s, int si)
 	if ((si < 0) || (si > s))
 		throw ("Out of range");
 	Size = s;
-	FirstIndex = si;
+	StartIndex = si;
 	pVector = new ValType[Size];
 	for (int i = 0; i < Size; i++)
 		pVector[i] = 0;
@@ -72,7 +72,7 @@ template <class ValType> //конструктор копирования
 TVector<ValType>::TVector(const TVector<ValType>& v)
 {
 	Size = v.Size;
-	FirstIndex = v.FirstIndex;
+	StartIndex = v.StartIndex;
 	pVector = new ValType[Size];
 	for (int i = 0; i < Size; i++)
 		pVector[i] = v.pVector[i];
@@ -88,7 +88,7 @@ TVector<ValType>::~TVector()
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-	if ((pos < FirstIndex) || (pos >= (Size + FirstIndex)))
+	if ((pos < StartIndex) || (pos >= (Size + StartIndex)))
 		throw ("Incorrect index");
 	return pVector[pos];
 } /*-------------------------------------------------------------------------*/
@@ -100,7 +100,7 @@ bool TVector<ValType>::operator==(const TVector& v) const
 	{
 		if (Size != v.Size)
 			return false;
-		else if (FirstIndex != v.FirstIndex)
+		else if (StartIndex != v.StartIndex)
 			return false;
 		else
 			for (int i = 0; i < Size; i++)
@@ -126,7 +126,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector& v)
 	{
 		delete[]pVector;
 		Size = v.Size;
-		FirstIndex = v.FirstIndex;
+		StartIndex = v.StartIndex;
 		pVector = new ValType[Size];
 		for (int i = 0; i < Size; i++)
 			pVector[i] = v.pVector[i];
@@ -166,7 +166,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType>& v)
 {
 	if (Size != v.Size)
 		throw ("Sizes dont equal");
-	if (FirstIndex != v.FirstIndex)
+	if (StartIndex != v.StartIndex)
 		throw ("Start indexes dont equal");
 	TVector res(Size);
 	for (int i = 0; i < Size; i++)
@@ -179,7 +179,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType>& v)
 {
 	if (Size != v.Size)
 		throw ("Sizes dont equal");
-	if (FirstIndex != v.FirstIndex)
+	if (StartIndex != v.StartIndex)
 		throw ("Start indexes dont equal");
 	TVector res(Size);
 	for (int i = 0; i < Size; i++)
@@ -192,12 +192,11 @@ ValType TVector<ValType>::operator*(const TVector<ValType>& v)
 {
 	if (Size != v.Size)
 		throw ("Sizes dont equal");
-	if (FirstIndex != v.FirstIndex)
+	if (StartIndex != v.StartIndex)
 		throw ("Start indexes dont equal");
 	ValType res = 0;
 	for (int i = 0; i < Size; i++)
 		res = res + pVector[i] * v.pVector[i];
 	return res;
 }
-
 #endif

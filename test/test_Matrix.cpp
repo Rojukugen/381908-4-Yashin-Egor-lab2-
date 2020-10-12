@@ -1,33 +1,32 @@
 #include "Matrix.h"
 
 #include <gtest.h>
-
 TEST(TMatrix, can_create_matrix_with_positive_length)
 {
-  ASSERT_NO_THROW(TMatrix<int> m(5));
+	ASSERT_NO_THROW(TMatrix<int> m(5));
 }
 
 TEST(TMatrix, cant_create_too_large_matrix)
 {
-  ASSERT_ANY_THROW(TMatrix<int> m(MAX_MATRIX_SIZE + 1));
+	ASSERT_ANY_THROW(TMatrix<int> m(MAX_MATRIX_SIZE + 1));
 }
 
 TEST(TMatrix, throws_when_create_matrix_with_negative_length)
 {
-  ASSERT_ANY_THROW(TMatrix<int> m(-5));
+	ASSERT_ANY_THROW(TMatrix<int> m(-5));
 }
 
 TEST(TMatrix, can_create_copied_matrix)
 {
-  TMatrix<int> m(5);
-  ASSERT_NO_THROW(TMatrix<int> m1(m));
+	TMatrix<int> m(5);
+	ASSERT_NO_THROW(TMatrix<int> m1(m));
 }
 
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
 	TMatrix<int> m1(10), m2(m1);
-	EXPECT_NE(&m1[0][0], &m2[0][0]); 
+	EXPECT_NE(&m1[0][0], &m2[0][0]); //!=
 }
 
 TEST(TMatrix, can_get_size)
@@ -54,7 +53,6 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
 	TMatrix<int> m(5);
 	ASSERT_ANY_THROW(m[3][100] = 5);
 }
-
 
 TEST(TMatrix, can_assign_matrices_of_equal_size)
 {
@@ -134,9 +132,9 @@ TEST(TMatrix, cant_subtract_matrixes_with_not_equal_size)
 	ASSERT_ANY_THROW(m1 - m2);
 }
 
-
+///////////////////
 TEST(TMatrix, compare_not_equal_matrices_return_true)
-{
+{//ujnjdj
 	TMatrix<int> m1(5), m2(5);
 	m1[1][1] = 4;
 	m2[1][1] = 5;
