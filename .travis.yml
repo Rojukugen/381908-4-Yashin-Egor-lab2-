@@ -8,7 +8,6 @@ before_script:
 script:
   - cmake ../lab2
   - make -j
-  - ls
   - ./test/Matrix_Test
 notifications:
   email: false
