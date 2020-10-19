@@ -8,7 +8,6 @@ using namespace std;
 
 const int MAX_VECTOR_SIZE = 100000;
 
-//Øàáëîí âåêòîðà
 template <class ValType>
 class TVector
 {
@@ -19,27 +18,27 @@ public:
   TVector();
   TVector(int _v);
   TVector(int s, int si);
-  TVector(const TVector& v);                // êîíñòðóêòîð êîïèðîâàíèÿ
+  TVector(const TVector& v);                
   virtual ~TVector();
 
-  int GetSize() { return Size; }            // ðàçìåð âåêòîðà
+  int GetSize() { return Size; }           
 
-  ValType& operator[](int pos);              // äîñòóï
-  bool operator==(const TVector& v) const;  // ñðàâíåíèå
-  TVector& operator=(const TVector& v);    // ïðèñâàèâàíèå
+  ValType& operator[](int pos);             
+  bool operator==(const TVector& v) const;  
+  TVector& operator=(const TVector& v);    
 
-  // ñêàëÿðíûå îïåðàöèè
-  TVector  operator+(const ValType& val);    // ïðèáàâèòü 
-  TVector  operator-(const ValType& val);   // âû÷åñòü 
-  TVector  operator*(const ValType& val);  // óìíîæèòü 
-  TVector  operator/(const ValType& val); //äåëèòü 
+  
+  TVector  operator+(const ValType& val);   
+  TVector  operator-(const ValType& val);   
+  TVector  operator*(const ValType& val); 
+  TVector  operator/(const ValType& val); 
 
-  // âåêòîðíûå îïåðàöèè
-  TVector  operator+(const TVector& v);     // ñëîæåíèå
-  TVector  operator-(const TVector& v);    // âû÷èòàíèå
-  TVector  operator*(const TVector& v);   // ñêàëÿðíîå ïðîèçâåäåíèå
+ 
+  TVector  operator+(const TVector& v);     
+  TVector  operator-(const TVector& v);    
+  TVector  operator*(const TVector& v);   
 
-   // ââîä-âûâîä
+  
   friend istream& operator>>(istream& in, TVector& v)
   {
     for (int i = 0; i < v.Size; i++)
@@ -100,7 +99,7 @@ TVector<ValType>::TVector(int s, int si)
   }
 }
 
-template <class ValType> //êîíñòðóêòîð êîïèðîâàíèÿ
+template <class ValType> 
 TVector<ValType>::TVector(const TVector<ValType>& v)
 {
   Size = v.Size;
@@ -125,7 +124,7 @@ TVector<ValType>::~TVector()
   pVector = NULL;
 }
 
-template <class ValType> // äîñòóï
+template <class ValType>
 ValType& TVector<ValType>::operator[](int index)
 {
   if (index < 0 || index > Size)
@@ -141,7 +140,7 @@ ValType& TVector<ValType>::operator[](int index)
   return pVector[0];
 }
 
-template <class ValType> // ñðàâíåíèå
+template <class ValType> 
 bool TVector<ValType>::operator==(const TVector& v) const
 {
   bool res = true;
@@ -160,14 +159,14 @@ bool TVector<ValType>::operator==(const TVector& v) const
   return res;
 }
 
-template <class ValType> //ïðèñâàèâàíèå
+template <class ValType> 
 TVector<ValType>& TVector<ValType>::operator=(const TVector& v)
 {
   if (this == &v)
   {
     return *this;
   }
-
+  Size = NULL;
   Size = v.Size;
   pVector = new ValType[Size];
 
@@ -178,7 +177,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector& v)
   return *this;
 }
 
-template <class ValType> //ïðèáàâèòü 
+template <class ValType> 
 TVector<ValType> TVector<ValType>::operator+(const ValType& val)
 {
   TVector<ValType> res;
@@ -192,7 +191,7 @@ TVector<ValType> TVector<ValType>::operator+(const ValType& val)
   return res;
 }
 
-template <class ValType> //âû÷åñòü 
+template <class ValType> 
 TVector<ValType> TVector<ValType>::operator-(const ValType& val)
 {
   TVector<ValType> res;
@@ -206,7 +205,7 @@ TVector<ValType> TVector<ValType>::operator-(const ValType& val)
   return res;
 }
 
-template <class ValType> //óìíîæèòü 
+template <class ValType> 
 TVector<ValType> TVector<ValType>::operator*(const ValType& val)
 {
   TVector<ValType> res;
@@ -234,7 +233,7 @@ inline TVector<ValType> TVector<ValType>::operator/(const ValType& val)
   return res;
 }
 
-template <class ValType> //ñëîæåíèå
+template <class ValType>
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType>& v)
 {
   if (v.Size != Size)
@@ -253,7 +252,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType>& v)
   return res;
 }
 
-template <class ValType> //âû÷èòàíèå
+template <class ValType> 
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType>& v)
 {
   if (v.Size != Size)
@@ -272,7 +271,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType>& v)
   return res;
 }
 
-template <class ValType> //ñêàëÿðíîå ïðîèçâåäåíèå
+template <class ValType> 
 TVector<ValType> TVector<ValType> ::operator*(const TVector<ValType>& v)
 {
   if (v.Size != Size)

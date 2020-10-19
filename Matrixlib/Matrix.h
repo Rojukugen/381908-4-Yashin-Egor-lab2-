@@ -6,25 +6,25 @@
 const int MAX_MATRIX_SIZE = 100000;
 
 
-template <class ValType> //Âåðõíåòðåóãîëüíàÿ ìàòðèöà
+template <class ValType> 
 class TMatrix : public TVector<TVector<ValType> >
 {
 private:
   int mSize;
 public:
   TMatrix(int s);
-  TMatrix(const TMatrix& mt);                        //êîïèðîâàíèå
-  TMatrix(const TVector<TVector<ValType> >& mt);    //ïðåîáðàçîâàíèå òèïà
+  TMatrix(const TMatrix& mt);                        
+  TMatrix(const TVector<TVector<ValType> >& mt);    
   ~TMatrix();
 
-  int GetSize() { return mSize; };               //Ïîëó÷åíèå ðàçìåðà Ìàòðèöû
-  bool operator==(const TMatrix& mt) const;     //ñðàâíåíèå Ìàòðèö
-  TMatrix operator= (const TMatrix& mt);       //ïðèñâàèâàíèå Ìàòðèö
-  TMatrix  operator+ (const TMatrix& mt);     //ñëîæåíèå Ìàòðèö
-  TMatrix  operator- (const TMatrix& mt);    //âû÷èòàíèå Ìàòðèö
-  TMatrix  operator* (const TMatrix& mt);   //óìíîæåíèå Ìàòðèö
+  int GetSize() { return mSize; };               
+  bool operator==(const TMatrix& mt) const;    
+  TMatrix operator= (const TMatrix& mt);       
+  TMatrix  operator+ (const TMatrix& mt);    
+  TMatrix  operator- (const TMatrix& mt);   
+  TMatrix  operator* (const TMatrix& mt);   
 
-  // ââîä / âûâîä
+  
   friend istream& operator>>(istream& in, TMatrix& mt)
   {
     for (int i = 0; i < mt.Size; i++)
@@ -53,13 +53,13 @@ inline TMatrix<ValType>::TMatrix(int s) : TVector<TVector <ValType> >(s)
   mSize = s;
 }
 
-template <class ValType> //êîíñòðóêòîð êîïèðîâàíèÿ
+template <class ValType>
 inline TMatrix<ValType>::TMatrix(const TMatrix<ValType>& mt) : TVector<TVector<ValType> >(mt)
 {
   mSize = mt.Size;
 }
 
-template <class ValType> //êîíñòðóêòîð ïðåîáðàçîâàíèÿ òèïà
+template <class ValType> 
 inline TMatrix<ValType>::TMatrix(const TVector<TVector<ValType> >& mt) : TVector<TVector<ValType> >(mt)
 {
 
@@ -74,7 +74,7 @@ inline TMatrix<ValType>::~TMatrix()
   }
 }
 
-template <class ValType> //ñðàâíåíèå
+template <class ValType> 
 bool TMatrix<ValType>::operator==(const TMatrix<ValType>& mt) const
 {
   bool res = true;
@@ -97,7 +97,7 @@ bool TMatrix<ValType>::operator==(const TMatrix<ValType>& mt) const
   return res;
 }
 
-template <class ValType> //ïðèñâàèâàíèå
+template <class ValType> 
 inline TMatrix<ValType> TMatrix<ValType>::operator=(const TMatrix<ValType>& mt)
 {
   if (this != &mt)
@@ -122,7 +122,7 @@ inline TMatrix<ValType> TMatrix<ValType>::operator=(const TMatrix<ValType>& mt)
   return *this;
 }
 
-template <class ValType> // ñëîæåíèå
+template <class ValType> 
 inline TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType>& mt)
 {
   if (this->GetSize() != mt.Size)
@@ -139,7 +139,7 @@ inline TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType>& mt)
   return temp;
 }
 
-template <class ValType> //âû÷èòàíèå
+template <class ValType> 
 inline TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType>& mt)
 {
   if (this->GetSize() != mt.Size)

@@ -71,6 +71,8 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
   ASSERT_ANY_THROW(A[0][10] = 10);
 }
 
+
+
 TEST(TMatrix, can_assign_matrices_of_equal_size)
 {
   TMatrix<int> A(5);
@@ -100,6 +102,37 @@ TEST(TMatrix, compare_matrix_with_itself_return_true)
   TMatrix<int> A(5);
 
   EXPECT_EQ(A == A, true);
+}
+
+TEST(TMatrix, can_multiplicate)
+{
+  TMatrix<int> A(5);
+  for (int i = 0; i < A.GetSize(); i++)
+  {
+    for (int j = 0; j < A.GetSize(); j++)
+    {
+      A[i][j] = 2;
+    }
+  }
+  TMatrix<int> B(5);
+  for (int i = 0; i < B.GetSize(); i++)
+  {
+    for (int j = 0; j < B.GetSize(); j++)
+    {
+      B[i][j] = 3;
+    }
+  }
+
+  TMatrix<int> C(5);
+  for (int i = 0; i < C.GetSize(); i++)
+  {
+    for (int j = 0; j < C.GetSize(); j++)
+    {
+      C[i][j] = 6;
+    }
+  }
+
+  EXPECT_EQ(A * B, C);
 }
 
 TEST(TMatrix, matrices_with_different_size_are_not_equal)
