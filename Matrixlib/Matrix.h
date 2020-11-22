@@ -5,7 +5,7 @@
 #include "MyVector.h"
 
 template<class T>
-class TMatrix : public Vector<Vector<T>> {
+class TMatrix : public Vector<Vector<T> > {
 public:
   TMatrix(int size = 0);
   TMatrix(const TMatrix<T>& matrix);
@@ -32,20 +32,20 @@ public:
 };
 
 template<class T>
-TMatrix<T>::TMatrix(int size) : Vector<Vector<T>>(size, Vector<T>()) {
+TMatrix<T>::TMatrix(int size) : Vector<Vector<T> >(size, Vector<T>()) {
   for (int i = 0; i < size; ++i) {
     this->x[i] = Vector<T>(size - i, 0);
   }
 }
 
 template<class T>
-TMatrix<T>::TMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T>>(vector) {}
+TMatrix<T>::TMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T> >(vector) {}
 
 template<class T>
 TMatrix<T>::~TMatrix() = default;
 
 template<class T>
-TMatrix<T>::TMatrix(const TMatrix<T> & matrix) : Vector<Vector<T>>(matrix) {}
+TMatrix<T>::TMatrix(const TMatrix<T> & matrix) : Vector<Vector<T> >(matrix) {}
 
 template<class T>
 TMatrix<T>& TMatrix<T>::operator=(const TMatrix<T> & matrix) {
