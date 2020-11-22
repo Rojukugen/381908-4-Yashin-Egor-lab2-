@@ -5,14 +5,14 @@
 #include "MyVector.h"
 
 template<class T>
-class SMatrix : public Vector<Vector<T>> {
+class SMatrix : public Vector<Vector<T> > {
 protected:
   int low_bw = 0;
   int upp_bw = 0;
 public:
   SMatrix(int size = 0, int low_bw = 0, int upp_bw = 0);
   SMatrix(const SMatrix<T>& matrix);
-  SMatrix(const Vector<Vector<T>>& vector);
+  SMatrix(const Vector<Vector<T> >& vector);
 
   ~SMatrix();
 
@@ -34,7 +34,7 @@ public:
 };
 
 template<class T>
-SMatrix<T>::SMatrix(int size, int low_bw, int upp_bw) : Vector<Vector<T>>(size, Vector<T>()) {
+SMatrix<T>::SMatrix(int size, int low_bw, int upp_bw) : Vector<Vector<T> >(size, Vector<T>()) {
   int max_bandwidth = size - 1;
   if (low_bw > max_bandwidth || upp_bw > max_bandwidth)
     throw out_of_range("bandwith out of range");
@@ -57,7 +57,7 @@ SMatrix<T>::SMatrix(int size, int low_bw, int upp_bw) : Vector<Vector<T>>(size, 
 }
 
 template<class T>
-SMatrix<T>::SMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T>>(vector) {
+SMatrix<T>::SMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T> >(vector) {
   
   // 1 1 0
   // 1 1 0
@@ -72,7 +72,7 @@ template<class T>
 SMatrix<T>::~SMatrix() = default;
 
 template<class T>
-SMatrix<T>::SMatrix(const SMatrix<T> & matrix) : Vector<Vector<T>>(matrix) {
+SMatrix<T>::SMatrix(const SMatrix<T> & matrix) : Vector<Vector<T> >(matrix) {
   if (matrix.length >= 3) {
     this->upp_bw = matrix.x[0].length - 1;
     this->upp_bw = matrix.x[matrix.length - 1].length - 1;
