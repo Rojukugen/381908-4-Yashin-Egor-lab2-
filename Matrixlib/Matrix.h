@@ -39,7 +39,7 @@ TMatrix<T>::TMatrix(int size) : Vector<Vector<T> >(size, Vector<T>()) {
 }
 
 template<class T>
-TMatrix<T>::TMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T> >(vector) {}
+TMatrix<T>::TMatrix(const Vector<Vector<T> >& vector) :Vector<Vector<T> >(vector) {}
 
 template<class T>
 TMatrix<T>::~TMatrix() = default;
