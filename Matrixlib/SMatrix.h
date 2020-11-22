@@ -127,7 +127,7 @@ bool SMatrix<T>::operator!=(const SMatrix<T>& matrix) const {
 
 template<class T>
 SMatrix<T> SMatrix<T>::operator+(const SMatrix<T> & matrix) {
-  return Vector<Vector<T>>::operator+(matrix);
+  return Vector<Vector<T> >::operator+(matrix);
 }
 
 template<class T1>
