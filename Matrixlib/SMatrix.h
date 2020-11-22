@@ -57,7 +57,7 @@ SMatrix<T>::SMatrix(int size, int low_bw, int upp_bw) : Vector<Vector<T> >(size,
 }
 
 template<class T>
-SMatrix<T>::SMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T> >(vector) {
+SMatrix<T>::SMatrix(const Vector<Vector<T> >& vector) :Vector<Vector<T> >(vector) {
   
   // 1 1 0
   // 1 1 0
