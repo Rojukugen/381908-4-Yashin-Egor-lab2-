@@ -6,7 +6,7 @@ before_script:
   - mkdir ../build
   - cd ../build
 script:
-  - cmake ../lab2
+  - cmake ../381908-4-Yashin-Egor-lab2-
   - make -j
   - ./test/Matrix_Test
 notifications:
