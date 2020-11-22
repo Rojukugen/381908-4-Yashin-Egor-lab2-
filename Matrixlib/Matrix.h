@@ -1,171 +1,122 @@
-﻿
-#ifndef _MATRIX_
-#define _MATRIX_
+﻿#pragma once
+#ifndef _TMATRIX_H
+#define _TMATRIX_H
+
 #include "MyVector.h"
 
-const int MAX_MATRIX_SIZE = 100000;
-
-
-template <class ValType> 
-class TMatrix : public TVector<TVector<ValType> >
-{
-private:
-  int mSize;
+template<class T>
+class TMatrix : public Vector<Vector<T>> {
 public:
-  TMatrix(int s);
-  TMatrix(const TMatrix& mt);                        
-  TMatrix(const TVector<TVector<ValType> >& mt);    
+  TMatrix(int size = 0);
+  TMatrix(const TMatrix<T>& matrix);
+  TMatrix(const Vector<Vector<T>>& vector);
   ~TMatrix();
 
-  int GetSize() { return mSize; };               
-  bool operator==(const TMatrix& mt) const;    
-  TMatrix operator= (const TMatrix& mt);       
-  TMatrix  operator+ (const TMatrix& mt);    
-  TMatrix  operator- (const TMatrix& mt);   
-  TMatrix  operator* (const TMatrix& mt);   
+  // 1 1 1    ->   1 1 1
+  // 1 1 0    ->   0 1 1
+  // 1 0 0    ->   0 0 1
+  T& operator()(int row, int col) const;
 
-  
-  friend istream& operator>>(istream& in, TMatrix& mt)
-  {
-    for (int i = 0; i < mt.Size; i++)
-    {
-      in >> mt.pVector[i];
-    }
-    return in;
-  }
-  friend ostream& operator<<(ostream& out, const TMatrix& mt)
-  {
-    for (int i = 0; i < mt.Size; i++)
-    {
-      out << mt.pVector[i] << endl;
-    }
-    return out;
-  }
+  TMatrix<T>& operator=(const TMatrix<T>& matrix);
+
+  TMatrix<T> operator+(const TMatrix<T>& matrix);
+
+  bool operator==(const TMatrix<T>& matrix) const;
+  bool operator!=(const TMatrix<T>& matrix) const;
+
+  template<class T1>
+  friend istream& operator>>(istream& istr, const TMatrix& matrix);
+
+  template<class T1>
+  friend ostream& operator<<(ostream& ostr, const TMatrix& matrix);
 };
 
-template<class ValType>
-inline TMatrix<ValType>::TMatrix(int s) : TVector<TVector <ValType> >(s)
-{
-  if (s < 0 || s > MAX_MATRIX_SIZE)
-  {
-    throw  logic_error("ERROR");
-  }
-  mSize = s;
-}
-
-template <class ValType>
-inline TMatrix<ValType>::TMatrix(const TMatrix<ValType>& mt) : TVector<TVector<ValType> >(mt)
-{
-  mSize = mt.Size;
-}
-
-template <class ValType> 
-inline TMatrix<ValType>::TMatrix(const TVector<TVector<ValType> >& mt) : TVector<TVector<ValType> >(mt)
-{
-
-}
-
-template<class ValType>
-inline TMatrix<ValType>::~TMatrix()
-{
-  if (mSize != 0)
-  {
-    mSize = NULL;
+template<class T>
+TMatrix<T>::TMatrix(int size) : Vector<Vector<T>>(size, Vector<T>()) {
+  for (int i = 0; i < size; ++i) {
+    this->x[i] = Vector<T>(size - i, 0);
   }
 }
 
-template <class ValType> 
-bool TMatrix<ValType>::operator==(const TMatrix<ValType>& mt) const
-{
-  bool res = true;
-  int S = this->Size;
+template<class T>
+TMatrix<T>::TMatrix(const Vector<Vector<T>>& vector) :Vector<Vector<T>>(vector) {}
 
-  if (S != mt.Size)
-  {
-    res = false;
-  }
+template<class T>
+TMatrix<T>::~TMatrix() = default;
 
-  for (int i = 0; i < S; i++)
-  {
-    if (this->pVector[i] == mt.pVector[i])
-    {
-      res = true;
-    }
-    else res = false;
-  }
+template<class T>
+TMatrix<T>::TMatrix(const TMatrix<T> & matrix) : Vector<Vector<T>>(matrix) {}
 
-  return res;
-}
-
-template <class ValType> 
-inline TMatrix<ValType> TMatrix<ValType>::operator=(const TMatrix<ValType>& mt)
-{
-  if (this != &mt)
-  {
-    if (this->Size != mt.Size)
-    {
-      if (this->pVector != NULL)
-      {
-        delete[] this->pVector;
+template<class T>
+TMatrix<T>& TMatrix<T>::operator=(const TMatrix<T> & matrix) {
+  if (this != &matrix) {
+    if (this->length != matrix.length) {
+      delete[] this->x;
+      this->length = matrix.length;
+      this->x = new Vector<T>[matrix.length];
+      for (int i = 0; i < matrix.length; ++i) {
+        this->x[i] = matrix.x[i];
       }
-      this->pVector = new TVector<ValType>[mt.Size];
     }
-
-    this->Size = mt.Size;
-
-    for (int i = 0; i < this->Size; i++)
-    {
-      this->pVector[i] = mt.pVector[i];
+    for (int i = 0; i < this->length; ++i) {
+      this->x[i] = matrix.x[i];
     }
   }
-
   return *this;
 }
 
-template <class ValType> 
-inline TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType>& mt)
-{
-  if (this->GetSize() != mt.Size)
-  {
-    throw  logic_error("ERROR");
-  }
-
-  TMatrix<ValType> temp(*this);
-
-  for (int i = 0; i < this->Size; i++)
-  {
-    temp.pVector[i] = temp.pVector[i] + mt.pVector[i];
-  }
-  return temp;
+template<class T>
+bool TMatrix<T>::operator==(const TMatrix<T> & matrix) const {
+  if (this->length != matrix.length)
+    return false;
+  for (int i = 0; i < this->length; i++)
+    if (this->x[i] != matrix.x[i])
+      return false;
+  return true;
 }
 
-template <class ValType> 
-inline TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType>& mt)
-{
-  if (this->GetSize() != mt.Size)
-  {
-    throw  logic_error("ERROR");
-  }
-
-  TMatrix<ValType> temp(*this);
-
-  for (int i = 0; i < this->Size; i++)
-  {
-    temp.pVector[i] = temp.pVector[i] - mt.pVector[i];
-  }
-  return temp;
+template<class T>
+bool TMatrix<T>::operator!=(const TMatrix<T>& matrix) const {
+  return !(*this == matrix);
 }
 
-template<class ValType>
-inline TMatrix<ValType> TMatrix<ValType>::operator*(const TMatrix& mt)
-{
-  TMatrix<ValType> temp(*this);
 
-  for (int i = 0; i < this->Size; i++)
-  {
-    temp.pVector[i] = temp.pVector[i] * mt.pVector[i];
-  }
-  return temp;
+template<class T>
+T& TMatrix<T>::operator()(int row, int col) const {
+  if (row < 0 || row >= this->length)
+    throw out_of_range("row out of range");
+  if (col < 0 || col >= this->length)
+    throw out_of_range("col out of range");
+  return this->x[row][col - row];
 }
+
+template<class T>
+TMatrix<T> TMatrix<T>::operator+(const TMatrix<T> & matrix) {
+  return Vector<Vector<T>>::operator+(matrix);
+}
+
+template<class T1>
+ostream& operator<<(ostream& ostr, const TMatrix<T1>& matrix) {
+  for (int i = 0; i < matrix.length; ++i) {
+    ostr << matrix.x[i];
+    ostr << "\n";
+  }
+  return ostr;
+}
+
+template<class T1>
+istream& operator>>(istream & istr, const TMatrix<T1> & matrix) {
+  for (int i = 0; i < matrix.length; ++i) {
+    istr >> matrix.x[i];
+  }
+  return istr;
+}
+
+
+
+
+
+
+
 
 #endif
