@@ -9,7 +9,7 @@ class TMatrix : public Vector<Vector<T> > {
 public:
   TMatrix(int size = 0);
   TMatrix(const TMatrix<T>& matrix);
-  TMatrix(const Vector<Vector<T>>& vector);
+  TMatrix(const Vector<Vector<T> >& vector);
   ~TMatrix();
 
   // 1 1 1    ->   1 1 1
@@ -92,7 +92,7 @@ T& TMatrix<T>::operator()(int row, int col) const {
 
 template<class T>
 TMatrix<T> TMatrix<T>::operator+(const TMatrix<T> & matrix) {
-  return Vector<Vector<T>>::operator+(matrix);
+  return Vector<Vector<T> >::operator+(matrix);
 }
 
 template<class T1>
